@@ -2,7 +2,7 @@ package com.molette.boondmanager.presentation.models
 
 import com.molette.boondmanager.data.db.models.BookDb
 
-class Book(
+data class Book(
     val id: Long,
     val title: String,
     val type: String,

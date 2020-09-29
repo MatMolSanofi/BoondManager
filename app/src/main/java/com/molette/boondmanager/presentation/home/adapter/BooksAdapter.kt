@@ -6,18 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
-import androidx.navigation.fragment.FragmentNavigatorDestinationBuilder
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.molette.boondmanager.R
 import com.molette.boondmanager.databinding.BookCellBinding
-import com.molette.boondmanager.presentation.home.HomeFragment
 import com.molette.boondmanager.presentation.home.HomeFragmentDirections
 import com.molette.boondmanager.presentation.models.Book
 
-class BooksAdapter(val navController: NavController): RecyclerView.Adapter<BookViewHolder>() {
+class BooksAdapter(val navController: NavController?): RecyclerView.Adapter<BookViewHolder>() {
 
     var data: List<Book> = mutableListOf()
         set(value) {
@@ -44,7 +42,7 @@ class BooksAdapter(val navController: NavController): RecyclerView.Adapter<BookV
     }
 }
 
-class BookViewHolder(val binding: BookCellBinding, val navController: NavController, val context: Context): RecyclerView.ViewHolder(binding.root){
+class BookViewHolder(val binding: BookCellBinding, val navController: NavController?, val context: Context): RecyclerView.ViewHolder(binding.root){
 
     fun bind(book: Book){
         binding.book = book
@@ -56,8 +54,10 @@ class BookViewHolder(val binding: BookCellBinding, val navController: NavControl
 
         binding.root.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?){
-                val navDirections = HomeFragmentDirections.actionHomeFragment2ToDetailsFragment(book.id)
-                navController.navigate(navDirections)
+                navController?.let {
+                    val navDirections = HomeFragmentDirections.actionHomeFragment2ToDetailsFragment(book.authorId)
+                    navController.navigate(navDirections)
+                }
             }
         })
     }

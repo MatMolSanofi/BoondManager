@@ -20,6 +20,10 @@ class BookRepositoryImpl(
         return localDatasource.bookDao.getAll()
     }
 
+    override fun getBooksFromAuthor(authorId: Long): Flow<List<BookDb>> {
+        return localDatasource.bookDao.getBooksFromAuthor(authorId)
+    }
+
     override suspend fun getBooksRemote() {
         withContext(Dispatchers.IO){
             try {

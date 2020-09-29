@@ -6,5 +6,6 @@ import kotlinx.coroutines.flow.Flow
 interface BookRepository {
 
     fun getBooks(): Flow<List<BookDb>>
+    fun getBooksFromAuthor(authorId: Long): Flow<List<BookDb>>
     suspend fun getBooksRemote()
 }
