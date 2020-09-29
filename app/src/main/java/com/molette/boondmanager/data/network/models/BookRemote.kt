@@ -1,10 +1,11 @@
 package com.molette.boondmanager.data.network.models
 
+import com.molette.boondmanager.data.db.models.BookDb
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class Book(
+class BookRemote(
     @SerialName("id")
     val id: Long,
     @SerialName("title")
@@ -16,4 +17,14 @@ class Book(
     @SerialName("author")
     val author: AuthorRemote
 ) {
+}
+
+fun BookRemote.toBookDb(): BookDb{
+    return BookDb(
+        id = id,
+        title = title,
+        type = type,
+        cover = cover,
+        authorId = author.id
+    )
 }
